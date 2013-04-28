@@ -28,6 +28,7 @@ module GeoMetro
         zip.each do |file|
           ext = file.name.split('.').last
           path = File.join(UPLOAD_PATH, file_name + '.' + ext)
+
           zip.extract(file, path) unless File.exist?(path)
         end
       end
@@ -36,14 +37,12 @@ module GeoMetro
     end
 
     def shp_to_geojson(shp, epsg_out=4326)
-      sr_wkt = "GEOGCS[\"WGS 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS 84\",6378137,298.257223563,AUTHORITY[\"EPSG\",\"7030\"]],AUTHORITY[\"EPSG\",\"6326\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"EPSG\",\"4326\"]]"
-
       read_shp = OGR::ShpReader.new.read File.join(UPLOAD_PATH, shp)
       read_shp_sr = read_shp.layers.first.spatial_ref
 
       file_name = shp.split('.').first
 
-      new_sr = read_shp_sr.to_wkt == sr_wkt ? nil : OGR::SpatialReference.from_epsg(4326)
+      new_sr = OGR::SpatialReference.from_epsg(epsg_out)
 
       read_shp.to_geojson "#{UPLOAD_PATH}/#{file_name}.geojson", {spatial_ref: new_sr}
       read_shp.free
@@ -52,16 +51,14 @@ module GeoMetro
     end
 
     get '/files/:file.?:format?' do
-      File.read("#{UPLOAD_PATH}/#{params[:file]}.#{params[:format]}")
+      send_file("#{UPLOAD_PATH}/#{params[:file]}.#{params[:format]}")
     end
 
-    post '/upload_shp' do
-      file = params['shp']
-      path = unzip_shp(file[:tempfile])
+    post '/shp_to_geojson' do
+      path = unzip_shp(params['shp'][:tempfile], params['epsg_code'])
       geojson_path = shp_to_geojson(path)
 
       content_type :json
-
       geojson = MultiJson.load(IO.read(geojson_path))
       MultiJson.dump({'geojson' => geojson, 'file' => geojson_path.split('/').last.split('.geojson').first})
     end

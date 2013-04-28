@@ -1,3 +1,3 @@
 $:.unshift File.join(File.expand_path(File.dirname(__FILE__)))
-require 'api'
+require 'app'
 run GeoMetro::App
