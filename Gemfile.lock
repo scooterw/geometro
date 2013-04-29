@@ -1,3 +1,22 @@
+GIT
+  remote: git://github.com/puma/puma.git
+  revision: 7856eab02bdbd46fb6a40753853268d1c361c37b
+  specs:
+    puma (2.0.0.b7)
+      rack (>= 1.1, < 2.0)
+
+GIT
+  remote: git://github.com/scooterw/tairu.git
+  revision: 34e9f4b9b6ab94efce0d7c9cef3be4222487b448
+  specs:
+    tairu (0.10.0)
+      connection_pool (= 1.0.0)
+      multi_json (= 1.7.2)
+      puma (>= 1.6.3)
+      redis (= 3.0.3)
+      sequel (= 3.46.0)
+      sinatra (= 1.4.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -13,10 +32,6 @@ GEM
     jruby-rack (1.1.13.2)
     multi_json (1.7.2)
     pg (0.15.1)
-    puma (1.6.3)
-      rack (~> 1.2)
-    puma (1.6.3-java)
-      rack (~> 1.2)
     rack (1.5.2)
     rack-cors (0.2.7)
       rack
@@ -29,13 +44,6 @@ GEM
       rack (~> 1.5, >= 1.5.2)
       rack-protection (~> 1.4)
       tilt (~> 1.3, >= 1.3.4)
-    tairu (0.10.0)
-      connection_pool (= 1.0.0)
-      multi_json (= 1.7.2)
-      puma (= 1.6.3)
-      redis (= 3.0.3)
-      sequel (= 3.46.0)
-      sinatra (= 1.4.2)
     tilt (1.3.7)
 
 PLATFORMS
@@ -49,9 +57,9 @@ DEPENDENCIES
   jdbc-postgres
   jruby-rack
   pg
-  puma
+  puma!
   rack-cors
   rubyzip
   sequel
   sinatra
-  tairu (= 0.10.0)
+  tairu!

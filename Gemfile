@@ -8,7 +8,7 @@ gem 'rack-cors'
 
 gem 'ffi'
 gem 'ffi-ogr', '0.0.1'
-gem 'tairu', '0.10.0'
+gem 'tairu', github: 'scooterw/tairu'
 gem 'ffi-geos', '0.1.1'
 #gem 'rgeo', '0.3.20'
 #gem 'rgeo-shapefile', '0.2.3'
@@ -23,4 +23,4 @@ platform :ruby do
   gem 'pg'
 end
 
-gem 'puma'
+gem 'puma', github: 'puma/puma'
