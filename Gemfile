@@ -16,11 +16,11 @@ gem 'ffi-geos', '0.1.1'
 
 platform :jruby do
   gem 'jruby-rack'
-  gem 'jdbc-postgres'
+  #gem 'jdbc-postgres'
 end
 
 platform :ruby do
-  gem 'pg'
+  #gem 'pg'
 end
 
 gem 'puma', github: 'puma/puma'
